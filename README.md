@@ -1,7 +1,9 @@
 # BeyondTest Project
 
 ## 프로젝트 개요
-이 프로젝트는 헥사고날 아키텍처를 기반으로 한 마이크로서비스 아키텍처를 구현하고 있습니다. 주요 서비스로는 User Service, Prescription Service, Notification Service가 있으며, 각 서비스는 도메인 주도 설계 원칙에 따라 구성되어 있습니다.
+* 이 프로젝트는 gRPC 기반의 마이크로서비스 아키텍처를 구현한 연습용 예제 프로젝트입니다.
+* 이 프로젝트는 사용자 관리, 처방 관리, 알림 서비스를 제공하는 서비스로 구성되어 있습니다.
+* 이 프로젝트는 헥사고날 아키텍처를 기반으로 한 마이크로서비스 아키텍처를 구현하고 있습니다. 주요 서비스로는 User Service, Prescription Service, Notification Service가 있으며, 각 서비스는 도메인 주도 설계 원칙에 따라 구성되어 있습니다.
 
 ## 프로젝트 구조
 
