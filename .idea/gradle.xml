@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/buildSrc" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/services" />
+            <option value="$PROJECT_DIR$/services/notification-service" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound/grpc" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound/grpc" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound/repository" />
+            <option value="$PROJECT_DIR$/services/notification-service/application" />
+            <option value="$PROJECT_DIR$/services/notification-service/domain" />
+            <option value="$PROJECT_DIR$/services/prescription-service" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound/grpc" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound/grpc" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound/repository" />
+            <option value="$PROJECT_DIR$/services/prescription-service/application" />
+            <option value="$PROJECT_DIR$/services/prescription-service/domain" />
+            <option value="$PROJECT_DIR$/services/user-service" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/inbound" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/inbound/grpc" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/outbound" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/outbound/grpc" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/outbound/repository" />
+            <option value="$PROJECT_DIR$/services/user-service/application" />
+            <option value="$PROJECT_DIR$/services/user-service/domain" />
+            <option value="$PROJECT_DIR$/shared" />
+            <option value="$PROJECT_DIR$/shared/utils" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
