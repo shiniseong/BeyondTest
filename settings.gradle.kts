@@ -28,6 +28,7 @@ include(":services:user-service:adapter:inbound:rest")
 include(":services:user-service:adapter:inbound:grpc")
 include(":services:user-service:adapter:outbound:repository")
 include(":services:user-service:adapter:outbound:grpc")
+include(":services:user-service:bootstrap")
 // Prescription Service
 include(":services:prescription-service")
 include(":services:prescription-service:domain")
@@ -36,6 +37,7 @@ include(":services:prescription-service:adapter:inbound:rest")
 include(":services:prescription-service:adapter:inbound:grpc")
 include(":services:prescription-service:adapter:outbound:repository")
 include(":services:prescription-service:adapter:outbound:grpc")
+include(":services:prescription-service:bootstrap")
 // Notification Service
 include(":services:notification-service")
 include(":services:notification-service:domain")
@@ -44,5 +46,6 @@ include(":services:notification-service:adapter:inbound:rest")
 include(":services:notification-service:adapter:inbound:grpc")
 include(":services:notification-service:adapter:outbound:repository")
 include(":services:notification-service:adapter:outbound:grpc")
+include(":services:notification-service:bootstrap")
 
 rootProject.name = "beyondtest"
