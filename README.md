@@ -18,7 +18,7 @@ beyondtest/
     │   ├── bootstrap/             # 애플리케이션 진입점 및 구성, DI 등 정의
     │   └── adapter/               # 어댑터 구현
     │       ├── inbound/           # 인바운드 어댑터
-    │       │   ├── rest/          # REST API 인터페이스
+    │       │   ├── web/           # WEB API 인터페이스
     │       │   └── grpc/          # gRPC 인터페이스
     │       └── outbound/          # 아웃바운드 어댑터
     │           ├── repository/    # 데이터 저장소 어댑터
@@ -30,7 +30,7 @@ beyondtest/
     │   ├── bootstrap/             # 애플리케이션 진입점 및 구성, DI 등 정의
     │   └── adapter/               # 어댑터 구현
     │       ├── inbound/           # 인바운드 어댑터
-    │       │   ├── rest/          # REST API 인터페이스
+    │       │   ├── web/           # WEB API 인터페이스
     │       │   └── grpc/          # gRPC 인터페이스
     │       └── outbound/          # 아웃바운드 어댑터
     │           ├── repository/    # 데이터 저장소 어댑터
@@ -42,7 +42,7 @@ beyondtest/
         ├── bootstrap/             # 애플리케이션 진입점 및 구성, DI 등 정의
         └── adapter/               # 어댑터 구현
             ├── inbound/           # 인바운드 어댑터
-            │   ├── rest/          # REST API 인터페이스
+            │   ├── web/           # WEB API 인터페이스
             │   └── grpc/          # gRPC 인터페이스
             └── outbound/          # 아웃바운드 어댑터
                 ├── repository/    # 데이터 저장소 어댑터
@@ -75,7 +75,7 @@ beyondtest/
 
 #### 3. 어댑터 계층 (Adapter Layer)
 - **인바운드 어댑터**: 외부에서 애플리케이션으로의 요청 처리
-    - REST 컨트롤러
+    - web 컨트롤러
     - gRPC 서비스
 - **아웃바운드 어댑터**: 애플리케이션에서 외부 시스템으로의 요청 처리
     - 데이터베이스 리포지토리
