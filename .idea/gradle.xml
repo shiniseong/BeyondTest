@@ -27,7 +27,7 @@
             <option value="$PROJECT_DIR$/services/notification-service/adapter" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound/grpc" />
-            <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound/web" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound/grpc" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/outbound/repository" />
@@ -38,7 +38,7 @@
             <option value="$PROJECT_DIR$/services/prescription-service/adapter" />
             <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound" />
             <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound/grpc" />
-            <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/prescription-service/adapter/inbound/web" />
             <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound" />
             <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound/grpc" />
             <option value="$PROJECT_DIR$/services/prescription-service/adapter/outbound/repository" />
@@ -49,7 +49,7 @@
             <option value="$PROJECT_DIR$/services/user-service/adapter" />
             <option value="$PROJECT_DIR$/services/user-service/adapter/inbound" />
             <option value="$PROJECT_DIR$/services/user-service/adapter/inbound/grpc" />
-            <option value="$PROJECT_DIR$/services/user-service/adapter/inbound/rest" />
+            <option value="$PROJECT_DIR$/services/user-service/adapter/inbound/web" />
             <option value="$PROJECT_DIR$/services/user-service/adapter/outbound" />
             <option value="$PROJECT_DIR$/services/user-service/adapter/outbound/grpc" />
             <option value="$PROJECT_DIR$/services/user-service/adapter/outbound/repository" />
