@@ -6,7 +6,4 @@ plugins {
 
 dependencies {
     api(project(":services:user-service:domain"))
-    api(libs.slf4j)
-    api(libs.logback.core)
-    api(libs.logback.classic)
 }
