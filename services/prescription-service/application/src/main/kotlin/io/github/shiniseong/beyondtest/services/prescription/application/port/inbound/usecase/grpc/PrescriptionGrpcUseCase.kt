@@ -4,5 +4,5 @@ import io.github.shiniseong.beyondtest.services.prescription.application.port.in
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 
 interface PrescriptionGrpcUseCase {
-    fun getPrescriptionByUserIdAndStatus(query: GetPrescriptionCodeByUserIdAndStatusQuery): PrescriptionCode?
+    fun findPrescriptionByUserIdAndStatus(query: GetPrescriptionCodeByUserIdAndStatusQuery): PrescriptionCode?
 }
