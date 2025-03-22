@@ -11,6 +11,12 @@ kotlinxCoroutines = "1.10.1"
 # Logging versions
 slf4j = "2.0.16"
 logback = "1.5.7"
+# Spring versions
+springBoot = "3.4.3"
+springKotlin = "2.1.10"
+springDependencyManagement = "1.1.7"
+# Test versions
+kotest = "5.9.1"
 
 [libraries]
 # Kotlin libraries
@@ -22,10 +28,24 @@ kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", 
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logback-core = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+# Test libraries
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
 # Libraries can be bundled together for easier import
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+loggingEcosystem = ["slf4j", "logback-core", "logback-classic"]
+testEcosystem = ["kotest-runner-junit5", "kotest-assertions-core", "kotest-property"]
 
 [plugins]
+# Kotlin plugins
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinPluginSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+# Spring plugins
+springBoot = { id = "org.springframework.boot", version.ref = "springBoot" }
+springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+springKotlin = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "springKotlin" }
+# ETC plugins
+protobuf = { id = "com.google.protobuf", version = "0.9.4" }
