@@ -7,10 +7,8 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.vo.Prescript
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescriptionCodeValue
 import io.github.shiniseong.beyondtest.shared.utils.now
 import kotlinx.datetime.LocalDateTime
-import java.util.*
 
 data class PrescriptionCode(
-    val id: String,
     val code: PrescriptionCodeValue,
     val status: PrescriptionCodeStatus,
     val createdBy: String,
@@ -49,7 +47,6 @@ data class PrescriptionCode(
 
     companion object {
         fun create(code: String, hospitalId: String) = PrescriptionCode(
-            id = UUID.randomUUID().toString(),
             code = code.toPrescriptionCodeValue(),
             status = PrescriptionCodeStatus.CREATED,
             createdBy = hospitalId,
