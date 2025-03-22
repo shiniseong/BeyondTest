@@ -1,6 +1,6 @@
 package io.github.shiniseong.beyondtest.services.prescription.domain.vo
 
-import io.github.shiniseong.beyondtest.services.prescription.domain.exception.NotValidPrescriptionCodeException
+import io.github.shiniseong.beyondtest.services.prescription.domain.exception.InvalidPrescriptionCodeValueException
 
 private const val PRESCRIPTION_CODE_LENGTH = 8
 private const val PRESCRIPTION_CODE_UPPERCASE_COUNT = 4
@@ -10,10 +10,10 @@ private const val PRESCRIPTION_CODE_DIGIT_COUNT = 4
 value class PrescriptionCodeValue(val value: String) {
     init {
         require(value.length == PRESCRIPTION_CODE_LENGTH) {
-            throw NotValidPrescriptionCodeException.notValidLength(this.value)
+            throw InvalidPrescriptionCodeValueException.notValidLength(this.value)
         }
         require(this.isValidFormat()) {
-            throw NotValidPrescriptionCodeException.notValidFormat(this.value)
+            throw InvalidPrescriptionCodeValueException.notValidFormat(this.value)
         }
     }
 }
