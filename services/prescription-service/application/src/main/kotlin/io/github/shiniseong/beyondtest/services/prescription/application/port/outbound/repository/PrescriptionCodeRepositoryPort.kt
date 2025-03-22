@@ -7,6 +7,6 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.entity.Presc
 interface PrescriptionCodeRepositoryPort {
     fun insertPrescriptionCode(prescriptionCode: PrescriptionCode): PrescriptionCode
     fun updatePrescriptionCode(prescriptionCode: PrescriptionCode): PrescriptionCode
-    fun findPrescriptionCodeByCodeValue(query: FindPrescriptionCodeByCodeValueQuery): PrescriptionCode?
-    fun findPrescriptionCodeByUserIdAndStatus(query: FindPrescriptionCodeByUserIdAndStatusQuery): List<PrescriptionCode>
+    fun findByCodeValue(query: FindPrescriptionCodeByCodeValueQuery): PrescriptionCode?
+    fun findAllByUserIdAndStatus(query: FindPrescriptionCodeByUserIdAndStatusQuery): List<PrescriptionCode>
 }
