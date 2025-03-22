@@ -21,6 +21,15 @@ include(":app")
 include(":shared:utils")
 
 // === Services ===
+// App Environment Service
+include(":services:app-environment-service")
+include(":services:app-environment-service:domain")
+include(":services:app-environment-service:application")
+include(":services:app-environment-service:adapter:inbound:web")
+include(":services:app-environment-service:adapter:inbound:grpc")
+include(":services:app-environment-service:adapter:outbound:repository")
+include(":services:app-environment-service:adapter:outbound:grpc")
+include(":services:app-environment-service:bootstrap")
 // User Service
 include(":services:user-service")
 include(":services:user-service:domain")

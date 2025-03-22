@@ -23,6 +23,17 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/services" />
+            <option value="$PROJECT_DIR$/services/app-environment-service" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/inbound" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/inbound/grpc" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/inbound/web" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/outbound" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/outbound/grpc" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/adapter/outbound/repository" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/application" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/bootstrap" />
+            <option value="$PROJECT_DIR$/services/app-environment-service/domain" />
             <option value="$PROJECT_DIR$/services/notification-service" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter" />
             <option value="$PROJECT_DIR$/services/notification-service/adapter/inbound" />
