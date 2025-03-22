@@ -4,8 +4,10 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.enums.Prescr
 import io.github.shiniseong.beyondtest.services.prescription.domain.exception.InvalidPrescriptionCodeException
 import io.github.shiniseong.beyondtest.services.prescription.domain.exception.InvalidPrescriptionStatusException
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.PrescriptionCodeValue
+import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescriptionCodeValue
 import io.github.shiniseong.beyondtest.shared.utils.now
 import kotlinx.datetime.LocalDateTime
+import java.util.*
 
 data class PrescriptionCode(
     val id: String,
@@ -18,11 +20,11 @@ data class PrescriptionCode(
     val expiredAt: LocalDateTime? = null,
 ) {
     init {
-        require(createdBy.isNotBlank()) { InvalidPrescriptionCodeException.createdByIsBlank() }
+        require(createdBy.isNotBlank()) { throw InvalidPrescriptionCodeException.createdByIsBlank() }
         if (status.isCreated()) {
-            require(activatedFor == null) { InvalidPrescriptionCodeException.default() }
-            require(activatedAt == null) { InvalidPrescriptionCodeException.default() }
-            require(expiredAt == null) { InvalidPrescriptionCodeException.default() }
+            require(activatedFor == null) { throw InvalidPrescriptionCodeException.default() }
+            require(activatedAt == null) { throw InvalidPrescriptionCodeException.default() }
+            require(expiredAt == null) { throw InvalidPrescriptionCodeException.default() }
         }
     }
 
@@ -45,4 +47,22 @@ data class PrescriptionCode(
         )
     }
 
+    companion object {
+        fun create(code: String, hospitalId: String) = PrescriptionCode(
+            id = UUID.randomUUID().toString(),
+            code = code.toPrescriptionCodeValue(),
+            status = PrescriptionCodeStatus.CREATED,
+            createdBy = hospitalId,
+        )
+
+        fun generateCodeValue(): String {
+            // 4개의 랜덤 대문자 알파벳을 생성합니다.
+            val letters = List(4) { ('A'..'Z').random() }
+            val digits = List(4) { ('0'..'9').random() }
+
+            return (letters + digits)
+                .shuffled()
+                .joinToString("")
+        }
+    }
 }

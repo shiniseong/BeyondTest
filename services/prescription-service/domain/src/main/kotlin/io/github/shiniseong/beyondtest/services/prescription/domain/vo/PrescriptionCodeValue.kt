@@ -16,7 +16,13 @@ value class PrescriptionCodeValue(val value: String) {
             throw InvalidPrescriptionCodeValueException.notValidFormat(this.value)
         }
     }
+
+    companion object {
+        fun wrap(value: String): PrescriptionCodeValue = PrescriptionCodeValue(value)
+    }
 }
+
+internal fun String.toPrescriptionCodeValue(): PrescriptionCodeValue = PrescriptionCodeValue.wrap(this)
 
 private fun PrescriptionCodeValue.isValidFormat(): Boolean {
     var upperCaseCount = 0
