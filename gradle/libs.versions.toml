@@ -17,6 +17,7 @@ springKotlin = "2.1.10"
 springDependencyManagement = "1.1.7"
 # Test versions
 kotest = "5.9.1"
+mockk = "1.13.17"
 
 [libraries]
 # Kotlin libraries
@@ -32,12 +33,13 @@ logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "lo
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # Libraries can be bundled together for easier import
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
 loggingEcosystem = ["slf4j", "logback-core", "logback-classic"]
-testEcosystem = ["kotest-runner-junit5", "kotest-assertions-core", "kotest-property"]
+testEcosystem = ["kotest-runner-junit5", "kotest-assertions-core", "kotest-property", "mockk"]
 
 [plugins]
 # Kotlin plugins

@@ -6,4 +6,5 @@ plugins {
 
 dependencies {
     api(project(":services:prescription-service:domain"))
+    testImplementation(libs.bundles.testEcosystem)
 }
