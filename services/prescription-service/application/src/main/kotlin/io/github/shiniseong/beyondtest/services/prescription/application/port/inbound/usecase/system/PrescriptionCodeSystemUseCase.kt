@@ -2,6 +2,6 @@ package io.github.shiniseong.beyondtest.services.prescription.application.port.i
 
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 
-interface PrescriptionSystemUseCase {
+interface PrescriptionCodeSystemUseCase {
     fun expirePrescriptionCode(): List<PrescriptionCode>
 }
