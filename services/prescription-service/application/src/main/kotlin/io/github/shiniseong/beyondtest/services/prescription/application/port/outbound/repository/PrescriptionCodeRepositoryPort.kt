@@ -1,12 +1,11 @@
 package io.github.shiniseong.beyondtest.services.prescription.application.port.outbound.repository
 
-import io.github.shiniseong.beyondtest.services.prescription.application.port.outbound.repository.query.FindPrescriptionCodeByCodeValueQuery
-import io.github.shiniseong.beyondtest.services.prescription.application.port.outbound.repository.query.FindPrescriptionCodeByUserIdAndStatusQuery
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
+import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 
 interface PrescriptionCodeRepositoryPort {
-    fun insertPrescriptionCode(prescriptionCode: PrescriptionCode): PrescriptionCode
-    fun updatePrescriptionCode(prescriptionCode: PrescriptionCode): PrescriptionCode
-    fun findByCodeValue(query: FindPrescriptionCodeByCodeValueQuery): PrescriptionCode?
-    fun findAllByUserIdAndStatus(query: FindPrescriptionCodeByUserIdAndStatusQuery): List<PrescriptionCode>
+    fun insert(prescriptionCode: PrescriptionCode): PrescriptionCode
+    fun update(prescriptionCode: PrescriptionCode): PrescriptionCode
+    fun findByCode(codeValue: String): PrescriptionCode?
+    fun findAllByUserIdAndStatus(userId: String, status: PrescriptionCodeStatus): List<PrescriptionCode>
 }
