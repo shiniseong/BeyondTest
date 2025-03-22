@@ -12,8 +12,8 @@ data class PrescriptionCode(
     val code: PrescriptionCodeValue,
     val status: PrescriptionCodeStatus,
     val createdBy: String,
-    val activatedFor: String? = null,
     val createdAt: LocalDateTime = LocalDateTime.now(),
+    val activatedFor: String? = null,
     val activatedAt: LocalDateTime? = null,
     val expiredAt: LocalDateTime? = null,
 ) {
