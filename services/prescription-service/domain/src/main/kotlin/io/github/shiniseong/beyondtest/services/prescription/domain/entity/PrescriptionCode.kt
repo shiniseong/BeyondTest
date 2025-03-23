@@ -33,6 +33,8 @@ data class PrescriptionCode(
             status = PrescriptionCodeStatus.ACTIVATED,
             activatedFor = userId,
             activatedAt = LocalDateTime.now(),
+            // 6 주 후 자정 직전 만료되는 시각을 계산합니다. kotlin-datetime 라이브러리의 LocalDateTime.now()는 UTC 시간을 반환합니다.
+
         )
     }
 
@@ -41,8 +43,12 @@ data class PrescriptionCode(
 
         return this.copy(
             status = PrescriptionCodeStatus.EXPIRED,
-            expiredAt = LocalDateTime.now(),
         )
+    }
+
+    private fun calculateExpiredAt(from: LocalDateTime): LocalDateTime {
+        return from
+
     }
 
     companion object {
