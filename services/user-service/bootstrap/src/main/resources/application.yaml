@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: user-service
+  r2dbc:
+    url: r2dbc:h2:mem:///usertestdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  profiles:
+    active: local
+
+server:
+  port: 8082
+
+logging:
+  level:
+    root: INFO
+    io.github.shiniseong.beyondtest: DEBUG
+    org.springframework.r2dbc: INFO
+    io.r2dbc: INFO
