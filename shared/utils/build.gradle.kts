@@ -10,4 +10,5 @@ dependencies {
     // Apply the kotlinx bundle of dependencies from the version catalog (`gradle/libs.versions.toml`).
     api(libs.bundles.kotlinxEcosystem)
     api(libs.bundles.loggingEcosystem)
+    testImplementation(libs.bundles.testEcosystem)
 }
