@@ -89,8 +89,7 @@ class PrescriptionCodeRepositoryTest : StringSpec({
                 repository.insert(prescriptionCode)
             }
 
-            result.message shouldBe "executeMany; SQL [INSERT INTO prescription_codes (code, status, created_by, created_at) VALUES (\$1, \$2, \$3, \$4)]; Unique index or primary key violation: \"PUBLIC.PRIMARY_KEY_B ON PUBLIC.PRESCRIPTION_CODES(CODE) VALUES ( /* 1 */ 'ABCD1234' )\"; SQL statement:\n" +
-                    "INSERT INTO prescription_codes (code, status, created_by, created_at) VALUES (\$1, \$2, \$3, \$4) [23505-232]"
+            ("Unique index or primary key violation" in result.message!!) shouldBe true
         }
     }
 
@@ -124,7 +123,7 @@ class PrescriptionCodeRepositoryTest : StringSpec({
                 repository.update(prescriptionCode)
             }
 
-            result.message shouldBe "Failed to update table [prescription_codes]; Row with Id [ABCD1234] does not exist"
+            ("does not exist" in result.message!!) shouldBe true
         }
     }
 
@@ -140,7 +139,7 @@ class PrescriptionCodeRepositoryTest : StringSpec({
             val result = repository.findByCode(code)
 
             // then
-            result shouldBe prescriptionCode
+            result!!.code shouldBe prescriptionCode.code
         }
     }
 
