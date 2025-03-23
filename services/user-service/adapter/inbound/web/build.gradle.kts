@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.springKotlin)
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
-
     id(libs.plugins.javaTestFixtures.get().toString())
 }
 

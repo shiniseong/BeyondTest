@@ -12,7 +12,7 @@ class UserVerificationHistoryMockRepository : UserVerificationHistoryRepositoryP
         return newUserVerificationHistory
     }
 
-    override suspend fun getAll(): List<UserVerificationHistory> {
+    override suspend fun findAll(): List<UserVerificationHistory> {
         return userVerificationHistoryMap.values.toList()
     }
 

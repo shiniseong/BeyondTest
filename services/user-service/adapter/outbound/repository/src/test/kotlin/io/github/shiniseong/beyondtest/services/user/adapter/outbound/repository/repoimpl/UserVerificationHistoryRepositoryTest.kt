@@ -145,7 +145,7 @@ class UserVerificationHistoryRepositoryTest : StringSpec({
             repository.insert(history2)
 
             // when
-            val allHistories = repository.getAll()
+            val allHistories = repository.findAll()
 
             // then
             allHistories.size shouldBe 2
@@ -199,7 +199,7 @@ class UserVerificationHistoryRepositoryTest : StringSpec({
 
             // when
             repository.insert(history)
-            val allHistories = repository.getAll()
+            val allHistories = repository.findAll()
 
             // then
             allHistories.size shouldBe 1
@@ -246,7 +246,7 @@ class UserVerificationHistoryRepositoryTest : StringSpec({
             // when
             repository.insert(successHistory)
             repository.insert(failureHistory)
-            val allHistories = repository.getAll()
+            val allHistories = repository.findAll()
 
             // then
             allHistories.size shouldBe 2

@@ -17,7 +17,7 @@ class UserVerificationHistoryRepository(
         entityTemplate.insert(userVerificationHistory.toEntity()).awaitSingle().toDomain()
 
 
-    override suspend fun getAll(): List<UserVerificationHistory> =
+    override suspend fun findAll(): List<UserVerificationHistory> =
         entityTemplate
             .select(entityClazz).all()
             .map { it.toDomain() }

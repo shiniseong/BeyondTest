@@ -8,6 +8,7 @@ import io.github.shiniseong.beyondtest.services.user.application.port.outbound.c
 import io.github.shiniseong.beyondtest.services.user.application.port.outbound.client.grpc.appenvironment.response.AppEnvironmentResponse
 import io.github.shiniseong.beyondtest.services.user.application.port.outbound.client.grpc.prescriptioncode.PrescriptionCodeClientPort
 import io.github.shiniseong.beyondtest.services.user.application.port.outbound.repository.UserVerificationHistoryRepositoryPort
+import io.github.shiniseong.beyondtest.services.user.domain.entity.UserVerificationHistory
 import io.github.shiniseong.beyondtest.services.user.domain.enums.UpdateType
 import io.github.shiniseong.beyondtest.services.user.domain.vo.AppVersion
 
@@ -36,6 +37,8 @@ class UserVerificationWebService(
             calculateUpdateType(latestAppEnvironment, command.version),
         )
     }
+
+    override suspend fun findAll(): List<UserVerificationHistory> = userVerificationHistoryRepository.findAll()
 
     private fun calculateUpdateType(
         environmentResponse: AppEnvironmentResponse,

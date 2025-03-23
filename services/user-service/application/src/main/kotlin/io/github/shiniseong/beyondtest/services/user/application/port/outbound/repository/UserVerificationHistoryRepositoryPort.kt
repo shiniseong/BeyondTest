@@ -4,5 +4,5 @@ import io.github.shiniseong.beyondtest.services.user.domain.entity.UserVerificat
 
 interface UserVerificationHistoryRepositoryPort {
     suspend fun insert(userVerificationHistory: UserVerificationHistory): UserVerificationHistory
-    suspend fun getAll(): List<UserVerificationHistory>
+    suspend fun findAll(): List<UserVerificationHistory>
 }
