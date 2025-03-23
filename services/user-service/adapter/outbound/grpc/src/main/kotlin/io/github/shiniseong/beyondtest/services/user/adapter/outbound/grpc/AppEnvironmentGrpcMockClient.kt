@@ -21,7 +21,7 @@ class AppEnvironmentGrpcMockClient : AppEnvironmentClientPort {
     )
     private val androidDebugLatestEnvironment = AppEnvironmentResponse(
         latestVersion = "1.2.3-alpha.1".toAppVersion(),
-        minimumRequiredVersion = "1.0.0.alpha.3".toAppVersion(),
+        minimumRequiredVersion = "1.0.0-alpha.3".toAppVersion(),
         validHashes = findValidHashes(OS.ANDROID, BuildMode.DEBUG)
     )
 
