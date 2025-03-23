@@ -16,6 +16,7 @@ class PrescriptionCodeWebService(
         while (true) {
             val code = PrescriptionCode.generateCodeValue()
             if (prescriptionCodeRepository.findByCode(code) == null) {
+                //TODO 동시에 같은 코드가 생성되는 경우를 방지하기 위해 동시성 제어가 필요함
                 return prescriptionCodeRepository.insert(command.toDomain(code))
             }
         }
