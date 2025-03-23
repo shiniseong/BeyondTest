@@ -32,10 +32,8 @@ class PrescriptionCodeWebService(
             ?.let { alreadyActivatedCode ->
                 throw AlreadyExistActivatedPrescriptionCode(alreadyActivatedCode.code.value)
             }
-
-        return existingPrescriptionCode.activateFor(command.userId).also {
-            prescriptionCodeRepository.update(it)
-        }
+        val activatedCode = existingPrescriptionCode.activateFor(command.userId)
+        return prescriptionCodeRepository.update(activatedCode)
     }
 
 }
