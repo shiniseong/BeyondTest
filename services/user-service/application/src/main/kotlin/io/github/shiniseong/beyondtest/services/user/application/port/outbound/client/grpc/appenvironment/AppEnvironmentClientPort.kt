@@ -3,6 +3,6 @@ package io.github.shiniseong.beyondtest.services.user.application.port.outbound.
 import io.github.shiniseong.beyondtest.services.user.application.port.outbound.client.grpc.appenvironment.query.GetLatestAppEnvironmentQuery
 import io.github.shiniseong.beyondtest.services.user.application.port.outbound.client.grpc.appenvironment.response.AppEnvironmentResponse
 
-interface AppEnvironmentGrpcClientPort {
+interface AppEnvironmentClientPort {
     fun getLatestAppEnvironment(query: GetLatestAppEnvironmentQuery): AppEnvironmentResponse
 }

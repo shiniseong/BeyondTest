@@ -4,5 +4,5 @@ import io.github.shiniseong.beyondtest.services.user.application.port.inbound.us
 import io.github.shiniseong.beyondtest.services.user.application.port.inbound.usecase.web.response.VerifyUserResponse
 
 interface UserVerificationWebUseCase {
-    fun verifyUser(command: VerifyUserCommand): VerifyUserResponse
+    suspend fun verifyUser(command: VerifyUserCommand): VerifyUserResponse
 }
