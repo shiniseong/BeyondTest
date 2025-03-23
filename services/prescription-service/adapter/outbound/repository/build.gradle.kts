@@ -16,7 +16,7 @@ dependencies {
         implementation(libs.kotlinx.coroutines.reactor)
         runtimeOnly(libs.r2dbc.mysql)
         runtimeOnly(libs.mysql.connector)
-        testRuntimeOnly(libs.r2dbc.h2)
+        testImplementation(libs.r2dbc.h2)
         testRuntimeOnly(libs.h2.database)
         testImplementation(libs.bundles.testEcosystem)
     }

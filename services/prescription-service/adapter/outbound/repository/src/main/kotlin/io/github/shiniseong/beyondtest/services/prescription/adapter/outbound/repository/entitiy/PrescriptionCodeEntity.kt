@@ -3,12 +3,13 @@ package io.github.shiniseong.beyondtest.services.prescription.adapter.outbound.r
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescriptionCodeValue
-import io.github.shiniseong.beyondtest.shared.utils.now
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toKotlinLocalDateTime
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.PersistenceCreator
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import java.time.LocalDateTime
 
 @Table("prescription_codes")
 data class PrescriptionCodeEntity @PersistenceCreator constructor(
@@ -31,10 +32,10 @@ data class PrescriptionCodeEntity @PersistenceCreator constructor(
         code = code.toPrescriptionCodeValue(),
         status = status,
         createdBy = createdBy,
-        createdAt = createdAt,
+        createdAt = createdAt.toKotlinLocalDateTime(),
         activatedFor = activatedFor,
-        activatedAt = activatedAt,
-        expiredAt = expiredAt,
+        activatedAt = activatedAt?.toKotlinLocalDateTime(),
+        expiredAt = expiredAt?.toKotlinLocalDateTime(),
     )
 }
 
@@ -42,8 +43,8 @@ fun PrescriptionCode.toEntity() = PrescriptionCodeEntity(
     code = code.value,
     status = status,
     createdBy = createdBy,
-    createdAt = createdAt,
+    createdAt = createdAt.toJavaLocalDateTime(),
     activatedFor = activatedFor,
-    activatedAt = activatedAt,
-    expiredAt = expiredAt,
+    activatedAt = activatedAt?.toJavaLocalDateTime(),
+    expiredAt = expiredAt?.toJavaLocalDateTime(),
 )

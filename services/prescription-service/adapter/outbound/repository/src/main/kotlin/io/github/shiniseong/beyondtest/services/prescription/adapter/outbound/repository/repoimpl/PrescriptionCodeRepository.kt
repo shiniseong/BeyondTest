@@ -31,7 +31,7 @@ class PrescriptionCodeRepository(
         userId: String,
         status: PrescriptionCodeStatus
     ): List<PrescriptionCode> {
-        val query = query(where("user_id").`is`(userId).and("status").`is`(status.name))
+        val query = query(where("activated_for").`is`(userId).and("status").`is`(status.name))
         return entityTemplate.select(query, entityClazz)
             .map { it.toDomain() }
             .asFlow()

@@ -12,3 +12,6 @@ enum class PrescriptionCodeStatus {
     fun isCreated(): Boolean = this == CREATED
     fun isActivated(): Boolean = this == ACTIVATED
 }
+typealias PrescriptionCodeStatusName = String
+
+fun PrescriptionCodeStatusName.toPrescriptionCodeStatus(): PrescriptionCodeStatus = PrescriptionCodeStatus.valueOf(this)
