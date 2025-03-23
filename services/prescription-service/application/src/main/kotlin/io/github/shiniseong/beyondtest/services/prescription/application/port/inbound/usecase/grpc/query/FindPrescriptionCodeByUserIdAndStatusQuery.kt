@@ -3,7 +3,7 @@ package io.github.shiniseong.beyondtest.services.prescription.application.port.i
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.exception.InvalidGetPrescriptionCodeByUserIdAndStatusQueryException
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 
-data class GetPrescriptionCodeByUserIdAndStatusQuery(
+data class FindPrescriptionCodeByUserIdAndStatusQuery(
     val userId: String,
     val status: PrescriptionCodeStatus
 ) {
