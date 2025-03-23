@@ -1,4 +1,4 @@
-package io.github.shiniseong.beyondtest.services.user.adapter.outbount.grpc
+package io.github.shiniseong.beyondtest.services.user.adapter.outbound.grpc
 
 import io.github.shiniseong.beyondtest.services.prescription.adapter.inbound.grpc.FindPrescriptionCodeByUserIdAndStatusRequest
 import io.github.shiniseong.beyondtest.services.prescription.adapter.inbound.grpc.PrescriptionCodeServiceGrpc
