@@ -15,7 +15,7 @@ class PrescriptionCodeRestController(
                 val command = req.awaitBody<CreatePrescriptionCodeCommand>()
                 ok().bodyValueAndAwait(prescriptionCodeWebService.createPrescriptionCode(command))
             }
-            "/status/activated".nest {
+            "/one/status/activated".nest {
                 PATCH("") { req ->
                     val command = req.awaitBody<ActivatePrescriptionCodeCommand>()
                     ok().bodyValueAndAwait(prescriptionCodeWebService.activatePrescriptionCode(command))
