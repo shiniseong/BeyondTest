@@ -8,7 +8,9 @@ import io.github.shiniseong.beyondtest.services.prescription.application.port.ou
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.PrescriptionCodeValue
+import io.github.shiniseong.beyondtest.shared.utils.endOfDay
 import io.github.shiniseong.beyondtest.shared.utils.now
+import io.github.shiniseong.beyondtest.shared.utils.plusWeeks
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -166,6 +168,9 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         // mock the repository behavior
         coEvery { repository.findByCode(codeString) } returns existingPrescriptionCode
         coEvery { repository.update(any()) } answers { firstArg() }
+        coEvery {
+            repository.findAllByUserIdAndStatus(userId, PrescriptionCodeStatus.ACTIVATED)
+        } returns emptyList()
 
         // mock the activatedAt
         val fixedInstant = Clock.System.now()
@@ -182,7 +187,11 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         result.activatedFor shouldBe userId
         result.createdAt shouldBe existingPrescriptionCode.createdAt
         result.activatedAt shouldBe fixedInstant.toLocalDateTime(TimeZone.currentSystemDefault())
-        result.expiredAt shouldBe null
+        (result.expiredAt shouldBe
+                fixedInstant
+                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                    .plusWeeks(6)
+                    .endOfDay())
 
         coVerify(exactly = 1) {
             repository.findByCode(codeString)
