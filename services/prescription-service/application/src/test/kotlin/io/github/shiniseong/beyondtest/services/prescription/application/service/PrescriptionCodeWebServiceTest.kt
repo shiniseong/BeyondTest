@@ -1,5 +1,6 @@
 package io.github.shiniseong.beyondtest.services.prescription.application.service
 
+import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.exception.AlreadyExistActivatedPrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.exception.PrescriptionCodeNotFoundException
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.usecase.web.command.ActivatePrescriptionCodeCommand
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.usecase.web.command.CreatePrescriptionCodeCommand
@@ -102,6 +103,46 @@ class PrescriptionCodeWebServiceTest : StringSpec({
 
         coVerify(exactly = 1) {
             repository.findByCode(codeString)
+        }
+    }
+
+    "처방 코드 활성화시 이미 활성화 된 처방 코드가 존재하는 경우" {
+        // given
+        val codeString = "ABCD1234"
+        val activatedCodeString = "EFGH5678"
+        val userId = "userId123"
+        val command = ActivatePrescriptionCodeCommand(userId = userId, code = codeString)
+        val existingPrescriptionCode = PrescriptionCode(
+            code = PrescriptionCodeValue(codeString),
+            status = PrescriptionCodeStatus.ACTIVATED,
+            createdBy = "hospitalId123",
+            activatedFor = userId,
+            createdAt = LocalDateTime.now(),
+            activatedAt = LocalDateTime.now(),
+            expiredAt = null
+        )
+        val alreadyActivatedCode = PrescriptionCode(
+            code = PrescriptionCodeValue(activatedCodeString),
+            status = PrescriptionCodeStatus.ACTIVATED,
+            createdBy = "hospitalId123",
+            activatedFor = userId,
+            createdAt = LocalDateTime.now(),
+            activatedAt = LocalDateTime.now(),
+            expiredAt = null
+        )
+
+        // mock the repository behavior
+        coEvery { repository.findByCode(codeString) } returns existingPrescriptionCode
+        coEvery { repository.findAllByUserIdAndStatus(any(), any()) } returns listOf(alreadyActivatedCode)
+
+        // when & then
+        val result = shouldThrow<AlreadyExistActivatedPrescriptionCode> { service.activatePrescriptionCode(command) }
+
+        result.message shouldBe AlreadyExistActivatedPrescriptionCode(code = activatedCodeString).message
+
+        coVerify(exactly = 1) {
+            repository.findByCode(codeString)
+            repository.findAllByUserIdAndStatus(userId, PrescriptionCodeStatus.ACTIVATED)
         }
     }
 
