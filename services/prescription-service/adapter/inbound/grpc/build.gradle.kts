@@ -10,10 +10,10 @@ plugins {
 }
 
 dependencies {
-    api(project(":services:prescription-service:application"))
+    implementation(project(":services:prescription-service:application"))
 
-    implementation(libs.grpc.services)
-    implementation(libs.spring.grpc.spring.boot.starter)
+    api(libs.grpc.services)
+    api(libs.spring.grpc.spring.boot.starter)
 
     testImplementation(libs.bundles.testEcosystem)
     testImplementation(libs.spring.grpc.test)
