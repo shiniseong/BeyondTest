@@ -81,4 +81,33 @@ class PrescriptionCodeTest : StringSpec({
         result.activatedAt shouldBe expectedActivatedAt
         result.expiredAt shouldBe expectedExpiredAt
     }
+
+    "expired()는 처방 코드를 만료 시키고 처방 만료일을 실제 만료가 된 시각으로 변경한다." {
+        // given
+        val codeValue = PrescriptionCode.generateCodeValue()
+        val hospitalId = "hospitalId"
+        val prescriptionCode = PrescriptionCode.create(codeValue, hospitalId)
+        val activatedFor = "user123"
+        val fixedLocalDateTime = LocalDateTime(2025, 3, 23, 10, 10)
+        val fixedInstant = fixedLocalDateTime.toInstant(TimeZone.currentSystemDefault())
+        mockkObject(Clock.System)
+        every { Clock.System.now() } returns fixedInstant
+        val activatedPrescriptionCode = prescriptionCode.activateFor(activatedFor)
+        val fixedLocalDateTime2 = LocalDateTime(
+            2025,
+            5,
+            5,
+            7,
+            10
+        )
+        val fixedInstant2 = fixedLocalDateTime2.toInstant(TimeZone.currentSystemDefault())
+        every { Clock.System.now() } returns fixedInstant2
+
+        // when
+        val result = activatedPrescriptionCode.expired()
+
+        // then
+        val expectedExpiredAt = fixedLocalDateTime2
+        result.expiredAt shouldBe expectedExpiredAt
+    }
 })
