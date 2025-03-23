@@ -26,6 +26,8 @@ class PrescriptionCodeWebService(
         val existingPrescriptionCode = prescriptionCodeRepository.findByCode(command.code)
             ?: throw PrescriptionCodeNotFoundException.default(command.code)
 
+        require(existingPrescriptionCode.status.isCreated()) { "이미 활성화 되었거나 만료된 코드입니다." }
+
         prescriptionCodeRepository
             .findAllByUserIdAndStatus(command.userId, PrescriptionCodeStatus.ACTIVATED)
             .firstOrNull()

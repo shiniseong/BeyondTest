@@ -148,6 +148,49 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         }
     }
 
+    "이미 활성화 되었거나 만료된 코드를 활성화 시도하는 경우 예외를 발생시킨다" {
+        // given
+        val codeString = "ABCD1234"
+        val userId = "userId123"
+        val command = ActivatePrescriptionCodeCommand(userId = userId, code = codeString)
+        val activatedCode = PrescriptionCode(
+            code = PrescriptionCodeValue(codeString),
+            status = PrescriptionCodeStatus.ACTIVATED,
+            createdBy = "hospitalId123",
+            activatedFor = userId,
+            createdAt = LocalDateTime.now(),
+            activatedAt = LocalDateTime.now(),
+            expiredAt = null
+        )
+        val expiredCode = PrescriptionCode(
+            code = PrescriptionCodeValue(codeString),
+            status = PrescriptionCodeStatus.EXPIRED,
+            createdBy = "hospitalId123",
+            activatedFor = userId,
+            createdAt = LocalDateTime.now(),
+            activatedAt = LocalDateTime.now(),
+            expiredAt = LocalDateTime.now()
+        )
+
+        // mock the repository behavior
+        coEvery { repository.findByCode(codeString) } returns activatedCode
+        coEvery { repository.findAllByUserIdAndStatus(any(), any()) } returns emptyList()
+
+        // when & then
+        val result = shouldThrow<IllegalArgumentException> { service.activatePrescriptionCode(command) }
+
+        result.message shouldBe "이미 활성화 되었거나 만료된 코드입니다."
+
+        // mock the repository behavior
+        coEvery { repository.findByCode(codeString) } returns expiredCode
+        coEvery { repository.findAllByUserIdAndStatus(any(), any()) } returns emptyList()
+
+        // when & then
+        val result2 = shouldThrow<IllegalArgumentException> { service.activatePrescriptionCode(command) }
+
+        result2.message shouldBe "이미 활성화 되었거나 만료된 코드입니다."
+    }
+
     "처방 코드 활성화 성공" {
         // given
         val codeString = "ABCD1234"
