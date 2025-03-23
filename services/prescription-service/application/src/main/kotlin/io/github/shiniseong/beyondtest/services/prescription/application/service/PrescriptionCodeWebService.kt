@@ -1,11 +1,13 @@
 package io.github.shiniseong.beyondtest.services.prescription.application.service
 
+import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.exception.AlreadyExistActivatedPrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.exception.PrescriptionCodeNotFoundException
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.usecase.web.PrescriptionCodeWebUseCase
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.usecase.web.command.ActivatePrescriptionCodeCommand
 import io.github.shiniseong.beyondtest.services.prescription.application.port.inbound.usecase.web.command.CreatePrescriptionCodeCommand
 import io.github.shiniseong.beyondtest.services.prescription.application.port.outbound.repository.PrescriptionCodeRepositoryPort
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
+import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 
 class PrescriptionCodeWebService(
     private val prescriptionCodeRepository: PrescriptionCodeRepositoryPort
@@ -22,6 +24,13 @@ class PrescriptionCodeWebService(
     override suspend fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode {
         val existingPrescriptionCode = prescriptionCodeRepository.findByCode(command.code)
             ?: throw PrescriptionCodeNotFoundException.default(command.code)
+
+        prescriptionCodeRepository
+            .findAllByUserIdAndStatus(command.userId, PrescriptionCodeStatus.ACTIVATED)
+            .firstOrNull()
+            ?.let { alreadyActivatedCode ->
+                throw AlreadyExistActivatedPrescriptionCode(alreadyActivatedCode.code.value)
+            }
 
         return existingPrescriptionCode.activateFor(command.userId).also {
             prescriptionCodeRepository.update(it)
