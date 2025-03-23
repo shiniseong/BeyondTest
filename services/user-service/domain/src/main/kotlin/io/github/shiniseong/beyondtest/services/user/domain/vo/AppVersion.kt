@@ -50,3 +50,7 @@ data class AppVersion(
         }
     }
 }
+
+typealias VersionString = String
+
+fun VersionString.toAppVersion(): AppVersion = AppVersion.parse(this)

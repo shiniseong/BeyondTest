@@ -1,5 +1,6 @@
 package io.github.shiniseong.beyondtest.services.user.domain.vo
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
@@ -38,5 +39,15 @@ class PreReleaseTest : StringSpec({
 
         // then
         result shouldBe -1
+    }
+
+    "alpha나 beta가 아닌 pre-release를 생성하려 하면 예외가 발생한다" {
+        // when
+        val exception = shouldThrow<IllegalArgumentException> {
+            PreRelease("gamma", 1)
+        }
+
+        // then
+        exception.message shouldBe "유효하지 않은 pre-release type 입니다. (type: gamma)"
     }
 })
