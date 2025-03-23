@@ -4,8 +4,8 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.entity.Presc
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
 
 interface PrescriptionCodeRepositoryPort {
-    fun insert(prescriptionCode: PrescriptionCode): PrescriptionCode
-    fun update(prescriptionCode: PrescriptionCode): PrescriptionCode
-    fun findByCode(codeValue: String): PrescriptionCode?
-    fun findAllByUserIdAndStatus(userId: String, status: PrescriptionCodeStatus): List<PrescriptionCode>
+    suspend fun insert(prescriptionCode: PrescriptionCode): PrescriptionCode
+    suspend fun update(prescriptionCode: PrescriptionCode): PrescriptionCode
+    suspend fun findByCode(codeValue: String): PrescriptionCode?
+    suspend fun findAllByUserIdAndStatus(userId: String, status: PrescriptionCodeStatus): List<PrescriptionCode>
 }

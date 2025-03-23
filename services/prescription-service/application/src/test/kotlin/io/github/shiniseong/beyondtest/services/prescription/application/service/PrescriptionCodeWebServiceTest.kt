@@ -36,8 +36,8 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         every { PrescriptionCode.generateCodeValue() } returns uniqueCode
 
         // mock the repository behavior
-        every { repository.findByCode(uniqueCode) } returns null
-        every { repository.insert(any()) } answers { firstArg() }
+        coEvery { repository.findByCode(uniqueCode) } returns null
+        coEvery { repository.insert(any()) } answers { firstArg() }
         // when
         val result = service.createPrescriptionCode(command)
 
@@ -46,7 +46,7 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         result.createdBy shouldBe hospitalId
         result.status shouldBe PrescriptionCodeStatus.CREATED
 
-        verify(exactly = 1) {
+        coVerify(exactly = 1) {
             repository.findByCode(uniqueCode)
             repository.insert(any())
         }
@@ -67,9 +67,9 @@ class PrescriptionCodeWebServiceTest : StringSpec({
 
         // mock the repository behavior
         val existingCode = mockk<PrescriptionCode>()
-        every { repository.findByCode(duplicateCode) } returns existingCode
-        every { repository.findByCode(uniqueCode) } returns null
-        every { repository.insert(any()) } answers { firstArg() }
+        coEvery { repository.findByCode(duplicateCode) } returns existingCode
+        coEvery { repository.findByCode(uniqueCode) } returns null
+        coEvery { repository.insert(any()) } answers { firstArg() }
 
         // when
         val result = service.createPrescriptionCode(command)
@@ -79,7 +79,7 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         result.createdBy shouldBe hospitalId
         result.status shouldBe PrescriptionCodeStatus.CREATED
 
-        verify(exactly = 1) {
+        coVerify(exactly = 1) {
             repository.findByCode(duplicateCode)
             repository.findByCode(uniqueCode)
             repository.insert(any())
@@ -93,14 +93,14 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         val command = ActivatePrescriptionCodeCommand(userId = userId, code = codeString)
 
         // mock the repository behavior
-        every { repository.findByCode(codeString) } returns null
+        coEvery { repository.findByCode(codeString) } returns null
 
         // when & then
         val result = shouldThrow<PrescriptionCodeNotFoundException> { service.activatePrescriptionCode(command) }
 
         result.message shouldBe PrescriptionCodeNotFoundException.default(codeString).message
 
-        verify(exactly = 1) {
+        coVerify(exactly = 1) {
             repository.findByCode(codeString)
         }
     }
@@ -123,8 +123,8 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         )
 
         // mock the repository behavior
-        every { repository.findByCode(codeString) } returns existingPrescriptionCode
-        every { repository.update(any()) } answers { firstArg() }
+        coEvery { repository.findByCode(codeString) } returns existingPrescriptionCode
+        coEvery { repository.update(any()) } answers { firstArg() }
 
         // mock the activatedAt
         val fixedInstant = Clock.System.now()
@@ -143,7 +143,7 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         result.activatedAt shouldBe fixedInstant.toLocalDateTime(TimeZone.currentSystemDefault())
         result.expiredAt shouldBe null
 
-        verify(exactly = 1) {
+        coVerify(exactly = 1) {
             repository.findByCode(codeString)
             repository.update(any())
         }

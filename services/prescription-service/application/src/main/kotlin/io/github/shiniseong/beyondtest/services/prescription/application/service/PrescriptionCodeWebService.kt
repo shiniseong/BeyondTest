@@ -10,7 +10,7 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.entity.Presc
 class PrescriptionCodeWebService(
     private val prescriptionCodeRepository: PrescriptionCodeRepositoryPort
 ) : PrescriptionCodeWebUseCase {
-    override fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode {
+    override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode {
         while (true) {
             val code = PrescriptionCode.generateCodeValue()
             if (prescriptionCodeRepository.findByCode(code) == null) {
@@ -19,7 +19,7 @@ class PrescriptionCodeWebService(
         }
     }
 
-    override fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode {
+    override suspend fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode {
         val existingPrescriptionCode = prescriptionCodeRepository.findByCode(command.code)
             ?: throw PrescriptionCodeNotFoundException.default(command.code)
 

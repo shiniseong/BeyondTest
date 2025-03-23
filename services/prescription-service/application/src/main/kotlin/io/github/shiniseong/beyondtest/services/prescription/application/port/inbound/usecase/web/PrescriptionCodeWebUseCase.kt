@@ -5,6 +5,6 @@ import io.github.shiniseong.beyondtest.services.prescription.application.port.in
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 
 interface PrescriptionCodeWebUseCase {
-    fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode
-    fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode
+    suspend fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode
+    suspend fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode
 }

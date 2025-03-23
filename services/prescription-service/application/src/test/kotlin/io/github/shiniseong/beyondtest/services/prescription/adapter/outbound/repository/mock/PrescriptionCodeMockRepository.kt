@@ -6,7 +6,7 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.enums.Prescr
 
 class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
     private val prescriptionCodeMap = mutableMapOf<String, PrescriptionCode>()
-    override fun insert(prescriptionCode: PrescriptionCode): PrescriptionCode {
+    override suspend fun insert(prescriptionCode: PrescriptionCode): PrescriptionCode {
         prescriptionCodeMap[prescriptionCode.code.value]
             ?.let { throw IllegalArgumentException("Prescription code already exists") }
 
@@ -14,7 +14,7 @@ class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
         return prescriptionCode
     }
 
-    override fun update(prescriptionCode: PrescriptionCode): PrescriptionCode {
+    override suspend fun update(prescriptionCode: PrescriptionCode): PrescriptionCode {
         prescriptionCodeMap[prescriptionCode.code.value]
             ?: throw IllegalArgumentException("Prescription code not found")
 
@@ -22,11 +22,14 @@ class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
         return prescriptionCode
     }
 
-    override fun findByCode(codeValue: String): PrescriptionCode? {
+    override suspend fun findByCode(codeValue: String): PrescriptionCode? {
         return prescriptionCodeMap[codeValue]
     }
 
-    override fun findAllByUserIdAndStatus(userId: String, status: PrescriptionCodeStatus): List<PrescriptionCode> {
+    override suspend fun findAllByUserIdAndStatus(
+        userId: String,
+        status: PrescriptionCodeStatus
+    ): List<PrescriptionCode> {
         return prescriptionCodeMap.values.filter { it.activatedFor == userId && it.status == status }
     }
 }
