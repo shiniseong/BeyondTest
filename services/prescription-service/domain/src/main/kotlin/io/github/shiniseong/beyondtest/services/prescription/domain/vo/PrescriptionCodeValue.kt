@@ -22,7 +22,7 @@ value class PrescriptionCodeValue(val value: String) {
     }
 }
 
-internal fun String.toPrescriptionCodeValue(): PrescriptionCodeValue = PrescriptionCodeValue.wrap(this)
+fun String.toPrescriptionCodeValue(): PrescriptionCodeValue = PrescriptionCodeValue.wrap(this)
 
 private fun PrescriptionCodeValue.isValidFormat(): Boolean {
     var upperCaseCount = 0
