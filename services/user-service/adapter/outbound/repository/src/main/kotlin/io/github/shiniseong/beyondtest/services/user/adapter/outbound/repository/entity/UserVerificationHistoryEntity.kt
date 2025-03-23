@@ -30,7 +30,7 @@ data class UserVerificationHistoryEntity @PersistenceCreator constructor(
     val createdAt: LocalDateTime = LocalDateTime.now(),
     @Column("verified")
     val verified: Boolean,
-    @Column("verified_at")
+    @Column("message")
     val message: String?,
 ) {
     fun toDomain() = UserVerificationHistory(
