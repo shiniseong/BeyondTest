@@ -1,9 +1,6 @@
 package io.github.shiniseong.beyondtest.services.prescription.bootstrap
 
-import io.github.shiniseong.beyondtest.services.prescription.bootstrap.di.applicationBeans
-import io.github.shiniseong.beyondtest.services.prescription.bootstrap.di.configurationBeans
-import io.github.shiniseong.beyondtest.services.prescription.bootstrap.di.controllerBeans
-import io.github.shiniseong.beyondtest.services.prescription.bootstrap.di.repositoryBeans
+import io.github.shiniseong.beyondtest.services.prescription.bootstrap.di.*
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
@@ -19,7 +16,7 @@ fun main(args: Array<String>) {
             configurationBeans,
             controllerBeans,
             repositoryBeans,
-
-            )
+            grpcClientBeans
+        )
     }
 }
