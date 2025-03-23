@@ -16,6 +16,10 @@ data class PreRelease(
         return version.compareTo(other.version)
     }
 
+    override fun toString(): String {
+        return "$type.$version"
+    }
+
     companion object {
         fun alpha(version: Int): PreRelease {
             return PreRelease("alpha", version)
