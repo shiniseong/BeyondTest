@@ -32,4 +32,8 @@ class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
     ): List<PrescriptionCode> {
         return prescriptionCodeMap.values.filter { it.activatedFor == userId && it.status == status }
     }
+
+    fun clearAll() {
+        prescriptionCodeMap.clear()
+    }
 }

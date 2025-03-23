@@ -24,6 +24,10 @@ class PrescriptionCodeGrpcServiceAdapterTest : StringSpec({
         server.shutdown()
         server.awaitTermination(5, TimeUnit.SECONDS)
     }
+
+    beforeTest {
+        repository.clearAll()
+    }
     "findAllPrescriptionCodeByUserIdAndStatus는 사용자 ID와 상태에 맞는 처방 코드를 반환해야 한다." {
         // given
         val userId = "userId123"
