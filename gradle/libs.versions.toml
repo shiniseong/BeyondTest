@@ -68,3 +68,5 @@ springDependencyManagement = { id = "io.spring.dependency-management", version.r
 springKotlin = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "springKotlin" }
 # ETC plugins
 protobuf = { id = "com.google.protobuf", version = "0.9.4" }
+# Test plugins
+javaTestFixtures = { id = "java-test-fixtures" }

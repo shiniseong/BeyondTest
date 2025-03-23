@@ -21,3 +21,14 @@ dependencies {
         testImplementation(libs.bundles.testEcosystem)
     }
 }
+
+
+// bootJar 태스크 비활성화 (어댑터 모듈은 독립 실행 가능한 JAR가 필요 없음)
+tasks.bootJar {
+    enabled = false
+}
+
+// 일반 jar 태스크 활성화 (다른 모듈에서 의존성으로 사용하기 위함)
+tasks.jar {
+    enabled = true
+}
