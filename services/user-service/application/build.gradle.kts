@@ -6,4 +6,5 @@ plugins {
 
 dependencies {
     api(project(":services:user-service:domain"))
+    testImplementation(libs.bundles.testEcosystem)
 }

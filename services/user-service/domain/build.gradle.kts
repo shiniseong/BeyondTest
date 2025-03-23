@@ -6,4 +6,5 @@ plugins {
 
 dependencies {
     api(project(":shared:utils"))
+    testImplementation(libs.bundles.testEcosystem)
 }
