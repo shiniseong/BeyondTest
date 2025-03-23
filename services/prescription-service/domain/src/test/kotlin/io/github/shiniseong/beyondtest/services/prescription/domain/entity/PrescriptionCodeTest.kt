@@ -5,6 +5,12 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescri
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockkObject
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 class PrescriptionCodeTest : StringSpec({
     "PrescriptionCodeValue 생성" {
@@ -44,5 +50,35 @@ class PrescriptionCodeTest : StringSpec({
 
         // then
         exception.message shouldBe InvalidPrescriptionCodeException.createdByIsBlank().message
+    }
+
+    "activateFor는 처방 코드를 활성화 하고 처방 코드 활성화 일로부터 6주 후를 만료 일로 설정 한다." {
+        // given
+        val codeValue = PrescriptionCode.generateCodeValue()
+        val hospitalId = "hospitalId"
+        val prescriptionCode = PrescriptionCode.create(codeValue, hospitalId)
+        val activatedFor = "user123"
+        val fixedLocalDateTime = LocalDateTime(2025, 3, 23, 10, 10)
+        val fixedInstant = fixedLocalDateTime.toInstant(TimeZone.currentSystemDefault())
+        mockkObject(Clock.System)
+        every { Clock.System.now() } returns fixedInstant
+
+        // when
+        val result = prescriptionCode.activateFor(activatedFor)
+
+        // then
+        val expectedActivatedAt = fixedLocalDateTime
+        val expectedExpiredAt = LocalDateTime(
+            2025,
+            5,
+            4,
+            23,
+            59,
+            59,
+            999_999_999
+        )
+        result.activatedFor shouldBe activatedFor
+        result.activatedAt shouldBe expectedActivatedAt
+        result.expiredAt shouldBe expectedExpiredAt
     }
 })
