@@ -7,6 +7,9 @@ spring:
     password:
   profiles:
     active: local
+  grpc:
+    server:
+      port: 9091
 
 server:
   port: 8081
@@ -17,7 +20,3 @@ logging:
     io.github.shiniseong.beyondtest: DEBUG
     org.springframework.r2dbc: INFO
     io.r2dbc: INFO
-
-grpc:
-  server:
-    port: 9091
