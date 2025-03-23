@@ -46,6 +46,7 @@ data class PrescriptionCode(
 
         return this.copy(
             status = PrescriptionCodeStatus.EXPIRED,
+            expiredAt = LocalDateTime.now()
         )
     }
 
