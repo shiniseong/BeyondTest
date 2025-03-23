@@ -9,7 +9,7 @@ class UserVerificationRestController(
     private val userVerificationService: UserVerificationWebUseCase
 ) : RouterFunction<ServerResponse> {
     private val delegate = coRouter {
-        "/api/v1/users/verification".nest {
+        "/api/v1/users/verifications".nest {
             POST("") { req ->
                 val command = req.awaitBody<VerifyUserCommand>()
                 ok().bodyValueAndAwait(userVerificationService.verifyUser(command))
