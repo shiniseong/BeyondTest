@@ -12,6 +12,8 @@ dependencies {
 
     dependencies {
         implementation(libs.spring.boot.starter.data.r2dbc)
+        implementation(libs.reactor.kotlin.extensions)
+        implementation(libs.kotlinx.coroutines.reactor)
         runtimeOnly(libs.r2dbc.mysql)
         runtimeOnly(libs.mysql.connector)
         testRuntimeOnly(libs.r2dbc.h2)
