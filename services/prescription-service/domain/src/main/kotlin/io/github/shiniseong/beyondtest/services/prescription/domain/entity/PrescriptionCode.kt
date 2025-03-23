@@ -5,7 +5,9 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.exception.In
 import io.github.shiniseong.beyondtest.services.prescription.domain.exception.InvalidPrescriptionStatusException
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.PrescriptionCodeValue
 import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescriptionCodeValue
+import io.github.shiniseong.beyondtest.shared.utils.endOfDay
 import io.github.shiniseong.beyondtest.shared.utils.now
+import io.github.shiniseong.beyondtest.shared.utils.plusWeeks
 import kotlinx.datetime.LocalDateTime
 
 data class PrescriptionCode(
@@ -29,11 +31,12 @@ data class PrescriptionCode(
     infix fun activateFor(userId: String): PrescriptionCode {
         require(status.isCreated()) { InvalidPrescriptionStatusException.notValidToActivate(status) }
 
+        val activatedAt = LocalDateTime.now()
         return this.copy(
             status = PrescriptionCodeStatus.ACTIVATED,
             activatedFor = userId,
-            activatedAt = LocalDateTime.now(),
-            // 6 주 후 자정 직전 만료되는 시각을 계산합니다. kotlin-datetime 라이브러리의 LocalDateTime.now()는 UTC 시간을 반환합니다.
+            activatedAt = activatedAt,
+            expiredAt = activatedAt.toExpiredAt()
 
         )
     }
@@ -46,10 +49,8 @@ data class PrescriptionCode(
         )
     }
 
-    private fun calculateExpiredAt(from: LocalDateTime): LocalDateTime {
-        return from
-
-    }
+    private fun LocalDateTime.toExpiredAt(): LocalDateTime =
+        this.plusWeeks(6).endOfDay()
 
     companion object {
         fun create(code: String, hospitalId: String) = PrescriptionCode(
