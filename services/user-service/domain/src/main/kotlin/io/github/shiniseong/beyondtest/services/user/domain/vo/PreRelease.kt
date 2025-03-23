@@ -12,7 +12,17 @@ data class PreRelease(
         if (type != other.type) {
             return if (type == "alpha") -1 else 1
         }
-        
+
         return version.compareTo(other.version)
+    }
+
+    companion object {
+        fun alpha(version: Int): PreRelease {
+            return PreRelease("alpha", version)
+        }
+
+        fun beta(version: Int): PreRelease {
+            return PreRelease("beta", version)
+        }
     }
 }
