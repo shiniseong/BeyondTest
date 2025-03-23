@@ -24,6 +24,9 @@ class UserVerificationWebService(
         runCatching {
             require(command.hash in latestAppEnvironment.validHashes) { "App 검증에 실패했습니다. Hash값이 유효하지 않습니다." }
             require(command.userId.hasActivatedPrescriptionCode()) { "활성화 된 처방 코드가 없습니다." }
+            require(command.version <= latestAppEnvironment.latestVersion) {
+                "알 수 없는 버전입니다. 최신 버전보다 더 높은 버전입니다. (request: ${command.version}, latest: ${latestAppEnvironment.latestVersion})"
+            }
         }
             .onSuccess {
                 userVerificationHistoryRepository.insert(command.toSuccessHistory())
