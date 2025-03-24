@@ -28,7 +28,7 @@
 프로젝트는 아래 서비스로 구성되어 있습니다:
 
 1. Prescription Service: 처방코드 생성 및 활성화 관리
-2. User Service: 사용자 검증 및 상태 관리
+2. User Service: 사용자 검증
 3. ~~App Environment Service (시간 관계상 미구현)~~
 4. ~~Notification Service (시간 관계상 미구현)~~
 
