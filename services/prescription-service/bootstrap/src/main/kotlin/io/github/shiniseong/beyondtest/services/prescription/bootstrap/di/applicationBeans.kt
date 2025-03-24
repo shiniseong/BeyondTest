@@ -6,11 +6,16 @@ import io.github.shiniseong.beyondtest.services.prescription.application.port.in
 import io.github.shiniseong.beyondtest.services.prescription.application.service.PrescriptionCodeGrpcService
 import io.github.shiniseong.beyondtest.services.prescription.application.service.PrescriptionCodeSystemService
 import io.github.shiniseong.beyondtest.services.prescription.application.service.PrescriptionCodeWebService
+import io.github.shiniseong.beyondtest.services.prescription.bootstrap.transaction.TransactionalPrescriptionCodeWebService
 import org.springframework.context.support.beans
 
 val applicationBeans = beans {
-    bean<PrescriptionCodeWebUseCase> {
+    bean {
         PrescriptionCodeWebService(ref())
+    }
+    bean<PrescriptionCodeWebUseCase>(isPrimary = true) {
+        val delegate = ref<PrescriptionCodeWebService>()
+        TransactionalPrescriptionCodeWebService(delegate)
     }
     bean<PrescriptionCodeGrpcUseCase> {
         PrescriptionCodeGrpcService(ref())
