@@ -136,6 +136,7 @@ override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeComma
 ### 처방코드 생성 시 동시성 문제 해결
 
 앞서 언급한 처방코드 생성 시 발생할 수 있는 동시성 문제를 다음과 같이 해결했습니다.
+[관련 내용 블로그 포스팅](https://shin-e-dog.tistory.com/150)
 
 #### 데코레이터 패턴과 SERIALIZABLE 트랜잭션 격리 수준 적용
 
