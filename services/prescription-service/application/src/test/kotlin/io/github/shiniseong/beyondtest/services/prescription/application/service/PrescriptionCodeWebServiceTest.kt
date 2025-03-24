@@ -11,6 +11,7 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.vo.Prescript
 import io.github.shiniseong.beyondtest.shared.utils.endOfDay
 import io.github.shiniseong.beyondtest.shared.utils.now
 import io.github.shiniseong.beyondtest.shared.utils.plusWeeks
+import io.github.shiniseong.beyondtest.shared.utils.withOutNanoSeconds
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -116,11 +117,11 @@ class PrescriptionCodeWebServiceTest : StringSpec({
         val command = ActivatePrescriptionCodeCommand(userId = userId, code = codeString)
         val existingPrescriptionCode = PrescriptionCode(
             code = PrescriptionCodeValue(codeString),
-            status = PrescriptionCodeStatus.ACTIVATED,
+            status = PrescriptionCodeStatus.CREATED,
             createdBy = "hospitalId123",
-            activatedFor = userId,
+            activatedFor = null,
             createdAt = LocalDateTime.now(),
-            activatedAt = LocalDateTime.now(),
+            activatedAt = null,
             expiredAt = null
         )
         val alreadyActivatedCode = PrescriptionCode(
@@ -234,7 +235,9 @@ class PrescriptionCodeWebServiceTest : StringSpec({
                 fixedInstant
                     .toLocalDateTime(TimeZone.currentSystemDefault())
                     .plusWeeks(6)
-                    .endOfDay())
+                    .endOfDay()
+                    .withOutNanoSeconds()
+                )
 
         coVerify(exactly = 1) {
             repository.findByCode(codeString)

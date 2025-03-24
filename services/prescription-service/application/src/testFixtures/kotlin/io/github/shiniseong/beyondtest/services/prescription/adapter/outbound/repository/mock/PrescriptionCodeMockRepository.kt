@@ -3,6 +3,7 @@ package io.github.shiniseong.beyondtest.services.prescription.adapter.outbound.r
 import io.github.shiniseong.beyondtest.services.prescription.application.port.outbound.repository.PrescriptionCodeRepositoryPort
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
+import kotlinx.datetime.LocalDateTime
 
 class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
     private val prescriptionCodeMap = mutableMapOf<String, PrescriptionCode>()
@@ -22,8 +23,17 @@ class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
         return prescriptionCode
     }
 
+    override suspend fun updateAll(prescriptionCodes: List<PrescriptionCode>): List<PrescriptionCode> {
+        prescriptionCodes.forEach { update(it) }
+        return prescriptionCodes
+    }
+
     override suspend fun findByCode(codeValue: String): PrescriptionCode? {
         return prescriptionCodeMap[codeValue]
+    }
+
+    override suspend fun findAll(): List<PrescriptionCode> {
+        return prescriptionCodeMap.values.toList()
     }
 
     override suspend fun findAllByUserIdAndStatus(
@@ -31,6 +41,12 @@ class PrescriptionCodeMockRepository : PrescriptionCodeRepositoryPort {
         status: PrescriptionCodeStatus
     ): List<PrescriptionCode> {
         return prescriptionCodeMap.values.filter { it.activatedFor == userId && it.status == status }
+    }
+
+    override suspend fun findAllToExpireFrom(from: LocalDateTime): List<PrescriptionCode> {
+        return prescriptionCodeMap.values.filter {
+            (it.status.isActivated()) && (it.expiredAt != null) && (it.expiredAt!! <= from)
+        }
     }
 
     fun clearAll() {

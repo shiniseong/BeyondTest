@@ -11,6 +11,7 @@ enum class PrescriptionCodeStatus {
 
     fun isCreated(): Boolean = this == CREATED
     fun isActivated(): Boolean = this == ACTIVATED
+    fun isExpired(): Boolean = this == EXPIRED
 }
 typealias PrescriptionCodeStatusName = String
 

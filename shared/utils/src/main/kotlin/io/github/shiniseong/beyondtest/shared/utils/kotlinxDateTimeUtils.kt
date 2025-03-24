@@ -21,3 +21,11 @@ fun LocalDateTime.startOfDay(): LocalDateTime {
 fun LocalDateTime.endOfDay(): LocalDateTime {
     return LocalDateTime(this.date, LocalTime(23, 59, 59, 999_999_999))
 }
+
+fun LocalTime.withNano(nano: Int): LocalTime {
+    return LocalTime(this.hour, this.minute, this.second, nano)
+}
+
+fun LocalDateTime.withOutNanoSeconds(): LocalDateTime {
+    return LocalDateTime(this.date, this.time.withNano(0))
+}

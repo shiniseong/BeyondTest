@@ -8,6 +8,7 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.vo.toPrescri
 import io.github.shiniseong.beyondtest.shared.utils.endOfDay
 import io.github.shiniseong.beyondtest.shared.utils.now
 import io.github.shiniseong.beyondtest.shared.utils.plusWeeks
+import io.github.shiniseong.beyondtest.shared.utils.withOutNanoSeconds
 import kotlinx.datetime.LocalDateTime
 
 data class PrescriptionCode(
@@ -51,7 +52,7 @@ data class PrescriptionCode(
     }
 
     private fun LocalDateTime.toExpiredAt(): LocalDateTime =
-        this.plusWeeks(6).endOfDay()
+        this.plusWeeks(6).endOfDay().withOutNanoSeconds()
 
     companion object {
         fun create(code: String, hospitalId: String) = PrescriptionCode(
@@ -61,7 +62,6 @@ data class PrescriptionCode(
         )
 
         fun generateCodeValue(): String {
-            // 4개의 랜덤 대문자 알파벳을 생성합니다.
             val letters = List(4) { ('A'..'Z').random() }
             val digits = List(4) { ('0'..'9').random() }
 

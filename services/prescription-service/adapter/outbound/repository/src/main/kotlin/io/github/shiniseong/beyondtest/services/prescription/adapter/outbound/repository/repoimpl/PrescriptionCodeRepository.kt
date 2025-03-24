@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toJavaLocalDateTime
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.relational.core.query.Criteria.where
 import org.springframework.data.relational.core.query.Query.query
@@ -24,14 +26,39 @@ class PrescriptionCodeRepository(
     override suspend fun update(prescriptionCode: PrescriptionCode): PrescriptionCode =
         entityTemplate.update(prescriptionCode.toEntity()).awaitSingle().toDomain()
 
+    override suspend fun updateAll(prescriptionCodes: List<PrescriptionCode>): List<PrescriptionCode> {
+        prescriptionCodes.forEach { update(it) }
+        return prescriptionCodes
+    }
+
     override suspend fun findByCode(codeValue: String): PrescriptionCode? =
         loadByCode(codeValue)?.toDomain()
+
+    override suspend fun findAll(): List<PrescriptionCode> {
+        return entityTemplate.select(entityClazz)
+            .all()
+            .map { it.toDomain() }
+            .asFlow()
+            .toList()
+    }
 
     override suspend fun findAllByUserIdAndStatus(
         userId: String,
         status: PrescriptionCodeStatus
     ): List<PrescriptionCode> {
         val query = query(where("activated_for").`is`(userId).and("status").`is`(status.name))
+        return entityTemplate.select(query, entityClazz)
+            .map { it.toDomain() }
+            .asFlow()
+            .toList()
+    }
+
+    override suspend fun findAllToExpireFrom(from: LocalDateTime): List<PrescriptionCode> {
+        val query = query(
+            where("status").`is`(PrescriptionCodeStatus.ACTIVATED.name)
+                .and("expired_at").lessThanOrEquals(from.toJavaLocalDateTime())
+        )
+
         return entityTemplate.select(query, entityClazz)
             .map { it.toDomain() }
             .asFlow()

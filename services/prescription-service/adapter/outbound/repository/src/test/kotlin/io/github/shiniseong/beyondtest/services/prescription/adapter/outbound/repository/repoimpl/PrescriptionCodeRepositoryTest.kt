@@ -2,14 +2,22 @@ package io.github.shiniseong.beyondtest.services.prescription.adapter.outbound.r
 
 import io.github.shiniseong.beyondtest.services.prescription.domain.entity.PrescriptionCode
 import io.github.shiniseong.beyondtest.services.prescription.domain.enums.PrescriptionCodeStatus
+import io.github.shiniseong.beyondtest.shared.utils.endOfDay
+import io.github.shiniseong.beyondtest.shared.utils.plusWeeks
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.common.runBlocking
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockkObject
 import io.r2dbc.h2.H2ConnectionConfiguration
 import io.r2dbc.h2.H2ConnectionFactory
 import io.r2dbc.spi.ConnectionFactory
 import kotlinx.coroutines.reactive.awaitFirstOrNull
+import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import org.springframework.dao.DuplicateKeyException
 import org.springframework.dao.TransientDataAccessResourceException
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
@@ -178,6 +186,36 @@ class PrescriptionCodeRepositoryTest : StringSpec({
             result.map { it.code.value } shouldBe listOf("ABCD1234", "EFGH5678")
             result.all { it.status.isActivated() } shouldBe true
             result.all { it.activatedFor == userId } shouldBe true
+        }
+    }
+
+    "findAllToExpireFrom함수는 from보다 만료일이 이전이거나 같은 처방 코드 목록을 반환해야 한다." {
+        runBlocking {
+            // given
+            val hospitalId = "hospitalId123"
+            val activatedAt = LocalDateTime(2025, 2, 10, 5, 0, 0)
+            val fixedInstant = activatedAt.toInstant(TimeZone.currentSystemDefault())
+            mockkObject(Clock.System)
+            every { Clock.System.now() } returns fixedInstant
+            val prescriptionCode1 = PrescriptionCode.create(code = "ABCD1234", hospitalId = hospitalId)
+            val prescriptionCode2 = PrescriptionCode.create(code = "EFGH5678", hospitalId = hospitalId)
+            val prescriptionCode3 = PrescriptionCode.create(code = "IJKL9012", hospitalId = hospitalId)
+            repository.insert(prescriptionCode1)
+            repository.insert(prescriptionCode2)
+            repository.insert(prescriptionCode3)
+            val activatedPrescriptionCode1 = prescriptionCode1.activateFor("userId123")
+            val activatedPrescriptionCode2 = prescriptionCode2.activateFor("userId456")
+            repository.update(activatedPrescriptionCode1)
+            repository.update(activatedPrescriptionCode2)
+
+            val expectedExpiredAt = activatedAt.plusWeeks(6).endOfDay()
+            val codesToExpire = repository.findAllToExpireFrom(expectedExpiredAt)
+            // when
+            val result = repository.updateAll(codesToExpire.map { it.expired() })
+            // then
+            result.size shouldBe 2
+            result.map { it.code.value } shouldBe listOf("ABCD1234", "EFGH5678")
+            result.all { it.status.isExpired() } shouldBe true
         }
     }
 

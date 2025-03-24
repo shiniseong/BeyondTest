@@ -75,7 +75,7 @@ class PrescriptionCodeTest : StringSpec({
             23,
             59,
             59,
-            999_999_999
+            0,
         )
         result.activatedFor shouldBe activatedFor
         result.activatedAt shouldBe expectedActivatedAt
