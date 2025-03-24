@@ -16,6 +16,7 @@ springBoot = "3.4.3"
 springKotlin = "2.1.10"
 springDependencyManagement = "1.1.7"
 springGrpc = "0.5.0"
+springDocOpenApi = "2.8.5"
 # Test versions
 kotest = "5.9.1"
 mockk = "1.13.17"
@@ -34,6 +35,7 @@ spring-boot-starter-webflux = { group = "org.springframework.boot", name = "spri
 spring-boot-starter-data-r2dbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-r2dbc" }
 spring-grpc-spring-boot-starter = { group = "org.springframework.grpc", name = "spring-grpc-spring-boot-starter" }
 spring-grpc-dependencies = { module = "org.springframework.grpc:spring-grpc-dependencies", version.ref = "springGrpc" }
+springdoc-openapi-starter-webflux-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webflux-ui", version.ref = "springDocOpenApi" }
 # Reactive libraries
 reactor-kotlin-extensions = { group = "io.projectreactor.kotlin", name = "reactor-kotlin-extensions" }
 kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor" }
