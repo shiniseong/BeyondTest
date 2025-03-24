@@ -4,7 +4,7 @@
 
 [API 명세(포스트맨)](https://documenter.getpostman.com/view/43352676/2sAYkHoy9x)
 
-[API 명세(Swagger, 로컬에 처방 코드 서비스 서버 실행 후 이용 가능)](http://localhost:8081/swagger-ui.html)
+[API 명세(Swagger)](http://15.164.164.149:8081//swagger-ui.html)
 
 ## 프로젝트 목표 및 개요
 
