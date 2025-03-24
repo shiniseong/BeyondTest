@@ -113,7 +113,7 @@ override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeComma
     while (true) {
         val code = PrescriptionCode.generateCodeValue()
         if (prescriptionCodeRepository.findByCode(code) == null) {
-            // 이 시점에서 다른 스레드가 같은 코드를 생성하고 삽입할 수 있음(Race Condition)
+            // 이 시점에서 다른 요청이 같은 코드를 생성하고 삽입할 수 있음(Race Condition)
             return prescriptionCodeRepository.insert(command.toDomain(code))
         }
     }
