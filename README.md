@@ -2,9 +2,9 @@
 
 이 프로젝트는 비욘드메디슨 채용 과제로, 헥사고날 아키텍처와 MSA(Microservice Architecture)를 기반으로 처방코드 관리 및 사용자 검증 서비스를 구현한 애플리케이션입니다.
 
-[API 명세(포스트맨)](https://documenter.getpostman.com/view/43352676/2sAYkHoy9x)
+[API 명세(Swagger)](http://15.164.164.149:8081/swagger-ui.html)
 
-[API 명세(Swagger)](http://15.164.164.149:8081//swagger-ui.html)
+[API 명세(포스트맨)](https://documenter.getpostman.com/view/43352676/2sAYkHoy9x)
 
 ## 프로젝트 목표 및 개요
 
