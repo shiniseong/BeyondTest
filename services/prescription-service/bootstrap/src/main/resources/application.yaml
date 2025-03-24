@@ -10,6 +10,12 @@ spring:
   grpc:
     server:
       port: 9091
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    url: /openapi.yaml
+    path: /swagger-ui.html
 
 server:
   port: 8081

@@ -12,6 +12,7 @@ dependencies {
     implementation(project(":services:prescription-service:adapter:inbound:web"))
     implementation(project(":services:prescription-service:adapter:inbound:grpc"))
     implementation(project(":services:prescription-service:adapter:outbound:repository"))
+    implementation(libs.springdoc.openapi.starter.webflux.ui)
 }
 
 dependencyManagement {

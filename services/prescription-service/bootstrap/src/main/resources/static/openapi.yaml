@@ -1,0 +1,488 @@
+openapi: 3.0.0
+info:
+  title: BeyondTest
+  description: >-
+    ### 비욘드 메디슨 채용 과제 API
+
+
+    - repository:
+    [https://github.com/shiniseong/BeyondTest](https://github.com/shiniseong/BeyondTest)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081/api/v1
+  - url: http://localhost:8082/api/v1
+tags:
+  - name: PrescriptionService
+    description: |-
+      ## 처방 코드 서비스 입니다.
+
+      - 처방 코드 생성
+      
+      - 처방 코드 활성화
+      
+      - 처방 코드 전체 조회(페이징 X, 테스트 용)
+  - name: PrescriptionService > RestAPI(/api/v1/prescription-codes)
+    description: |-
+      #### Port: 8081
+
+      ### Root path: /api/v1/prescription-codes
+  - name: UserService
+    description: |-
+      ## 사용자 서비스
+
+      - 사용자 검증
+      
+      - 사용자 검증 내역 전체 조회(페이징 X, 테스트 확인용)
+  - name: UserService > RestAPI(/api/v1/users)
+    description: |-
+      #### Port: 8082
+
+      #### Root path: /api/v1/users
+  - name: UserService > RestAPI(/api/v1/users) > 사용자 검증(/verifications)
+    description: |-
+      #### 사용자 검증에 관한 기능들을 다룹니다.
+
+      - 사용자 검증 요청
+      
+      - 검증 내역 전체 조회
+paths:
+  /prescription-codes:
+    post:
+      tags:
+        - PrescriptionService > RestAPI(/api/v1/prescription-codes)
+      summary: 처방 코드 생성(/)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospitalId: >-
+                  JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '227'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 81O93HCX
+                status: CREATED
+                createdBy: >-
+                  JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                createdAt: '2025-03-24T01:20:39.173'
+                activatedFor: null
+                activatedAt: null
+                expiredAt: null
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '222'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                timestamp: '2025-03-24T02:51:28.320'
+                error: Bad Request
+                message: 유효하지 않은 처방 코드 생성 요청입니다.
+                path: /api/v1/prescription-codes
+                type: InvalidCreatePrescriptionCodeCommandException
+    get:
+      tags:
+        - PrescriptionService > RestAPI(/api/v1/prescription-codes)
+      summary: 처방 전체 조회(/)
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '1825'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - code: C9X1N1M5
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:49.678'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: 46G4IE7X
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:50.806'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: 543QBGN7
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:51.599'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: 8Z5L0W9Q
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:52.221'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: P9204EPL
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:52.865'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: 40QFAZ24
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:53.497'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: 0B81I8HA
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:54.128'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+                - code: HPR20Z28
+                  status: CREATED
+                  createdBy: >-
+                    JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                  createdAt: '2025-03-24T11:30:54.767'
+                  activatedFor: null
+                  activatedAt: null
+                  expiredAt: null
+  /prescription-codes/one/status/activated:
+    patch:
+      tags:
+        - PrescriptionService > RestAPI(/api/v1/prescription-codes)
+      summary: 처방 코드 활성화(/one/status/activated)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                code: HPR20Z28
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '305'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 49WOA05F
+                status: ACTIVATED
+                createdBy: >-
+                  JDQ4MTg4MSM1MSMkMSMkMCMkNzIkNTgxOTYxIzMxIyQxIyQ3IyQ4OSQyNjEwMDIjNTEjJDEjJDIjJDgz
+                createdAt: '2025-03-24T01:25:37.046'
+                activatedFor: e4e3ecbd-2208-4905-8120-426473d0eae9
+                activatedAt: '2025-03-24T01:26:01.267'
+                expiredAt: '2025-05-05T23:59:59.999'
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '214'
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 실패 -  UserId가 Blank로 입력됨
+                  value:
+                    timestamp: '2025-03-24T02:54:58.440'
+                    error: Bad Request
+                    message: 유저 ID가 공백으로 입력 되었습니다.
+                    path: /api/v1/prescription-codes/one/status/activated
+                    type: IllegalArgumentException
+                example-1:
+                  summary: 실패 - 처방 코드가 유효하지 않음.
+                  value:
+                    timestamp: '2025-03-24T02:58:34.650'
+                    error: Bad Request
+                    message: '처방 코드는 8자여야 합니다. (code: 000000000)'
+                    path: /api/v1/prescription-codes/one/status/activated
+                    type: InvalidPrescriptionCodeValueException
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '268'
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 실패 - 환자에게 이미 활성화 된 처방 코드 존재
+                  value:
+                    timestamp: '2025-03-24T02:52:53.319'
+                    error: Internal Server Error
+                    message: '이미 활성화된 처방 코드가 존재합니다. (activated code: 7FN0IV00)'
+                    path: /api/v1/prescription-codes/one/status/activated
+                    type: AlreadyExistActivatedPrescriptionCode
+                example-1:
+                  summary: 실패 - 처방코드를 찾을 수 없습니다.
+                  value:
+                    timestamp: '2025-03-24T03:02:46.723'
+                    error: Internal Server Error
+                    message: '처방 코드를 찾을 수 없습니다. (code: ABCD1234)'
+                    path: /api/v1/prescription-codes/one/status/activated
+                    type: PrescriptionCodeNotFoundException
+                example-2:
+                  summary: 실패 - 이미 활성화 된 코드
+                  value:
+                    timestamp: '2025-03-24T07:45:12.954'
+                    error: Internal Server Error
+                    message: 이미 활성화 된 코드입니다.
+                    path: /api/v1/prescription-codes/one/status/activated
+                    type: IllegalArgumentException
+  /users/verifications:
+    post:
+      tags:
+        - UserService > RestAPI(/api/v1/users) > 사용자 검증(/verifications)
+      summary: 사용자 검증 요청(/)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                version: 1.2.3-alpha.1
+                os: ANDROID
+                mode: DEBUG
+                hash: android-debug-hash
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '42'
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 성공 - 업데이트 없음
+                  value:
+                    updateType: NONE
+                    shouldUpdate: false
+                example-1:
+                  summary: 성공 - 업데이트 권장
+                  value:
+                    updateType: RECOMMENDED
+                    shouldUpdate: true
+                example-2:
+                  summary: 성공 - 업데이트 강제
+                  value:
+                    updateType: REQUIRED
+                    shouldUpdate: true
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '232'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                timestamp: '2025-03-24T11:39:06.380'
+                error: Bad Request
+                message: '유효하지 않은 version format 입니다.(version: 1.2.3-alpha.1ㅁㄴㅇㅁㄴㅇ)'
+                path: /api/v1/users/verifications
+                type: IllegalArgumentException
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '199'
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 실패 - 활성화 된 처방 코드 없음
+                  value:
+                    timestamp: '2025-03-24T07:41:09.903'
+                    error: Internal Server Error
+                    message: 활성화 된 처방 코드가 없습니다.
+                    path: /api/v1/users/verifications
+                    type: IllegalArgumentException
+                example-1:
+                  summary: 실패 - hash 체크 실패
+                  value:
+                    timestamp: '2025-03-24T07:41:42.714'
+                    error: Internal Server Error
+                    message: App 검증에 실패했습니다. Hash값이 유효하지 않습니다.
+                    path: /api/v1/users/verifications
+                    type: IllegalArgumentException
+                example-2:
+                  summary: 실패 - 알려진 최신 버전 보다 더 높은 버전으로 검증 요청
+                  value:
+                    timestamp: '2025-03-24T08:11:35.141'
+                    error: Internal Server Error
+                    message: >-
+                      알 수 없는 버전입니다. 최신 버전보다 더 높은 버전입니다. (request: 2.2.3-alpha.1,
+                      latest: 1.2.3-alpha.1)
+                    path: /api/v1/users/verifications
+                    type: IllegalArgumentException
+    get:
+      tags:
+        - UserService > RestAPI(/api/v1/users) > 사용자 검증(/verifications)
+      summary: 검증 내역 전체 조회(/)
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '1414'
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - id: 1
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 1.2.3-alpha.1
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hash
+                  createdAt: '2025-03-24T11:38:28.027'
+                  verified: false
+                  message: 활성화 된 처방 코드가 없습니다.
+                - id: 2
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 1.2.3-alpha.1
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hash
+                  createdAt: '2025-03-24T11:38:51.837'
+                  verified: true
+                  message: 검증 성공
+                - id: 3
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 0.0.0
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hash
+                  createdAt: '2025-03-24T11:39:29.671'
+                  verified: true
+                  message: 검증 성공
+                - id: 4
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 1.2.0
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hash
+                  createdAt: '2025-03-24T11:39:43.979'
+                  verified: true
+                  message: 검증 성공
+                - id: 5
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 1.2.3-alpha.1
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hashㅁㄴㅇㄹ
+                  createdAt: '2025-03-24T11:40:57.709'
+                  verified: false
+                  message: App 검증에 실패했습니다. Hash값이 유효하지 않습니다.
+                - id: 6
+                  userId: e4e3ecbd-2208-4905-8120-426473d0eae9
+                  version: 1.2.3-alpha.1
+                  os: ANDROID
+                  mode: DEBUG
+                  hash: android-debug-hash
+                  createdAt: '2025-03-24T11:41:00.916'
+                  verified: true
+                  message: 검증 성공
