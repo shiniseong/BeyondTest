@@ -106,7 +106,7 @@
 5. **여러 서비스간 분산 트랜잭션 적용**
     - 서비스별로 별도의 데이터베이스를 운용하는 구조이기 때문에 특정 서비스에서 예외 발생시 관련 서비스가 롤백 할 수 있는 기능 구현이 필요해 보입니다.
 
-## 동시성 이슈
+## 동시성 이슈 (해결. 하단의 해결 된 부분 참조)
 
 프로젝트 구현 중 발견된 동시성 문제가 발생할 수 있는 부분입니다.
 
@@ -128,8 +128,55 @@ override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeComma
 
 1. 데이터베이스 수준에서 유니크 제약 조건 설정(현재 구현됨)
 2. 분산 락(Distributed Lock) 사용
-3. DB 트랜잭션 격리 수준 조정
+3. DB 트랜잭션 격리 수준 조정(현재 구현됨)
 4. 낙관적 락(Optimistic Locking) 구현
+
+## 해결된 문제
+
+### 처방코드 생성 시 동시성 문제 해결
+
+앞서 언급한 처방코드 생성 시 발생할 수 있는 동시성 문제를 다음과 같이 해결했습니다.
+
+#### 데코레이터 패턴과 SERIALIZABLE 트랜잭션 격리 수준 적용
+
+기존 서비스 로직을 수정하지 않고 트랜잭션 처리를 위한 데코레이터를 추가하여 동시성 문제를 해결했습니다.
+
+```kotlin
+open class TransactionalPrescriptionCodeWebService(
+    private val delegateService: PrescriptionCodeWebUseCase
+) : PrescriptionCodeWebUseCase by delegateService {
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode =
+        delegateService.createPrescriptionCode(command)
+}
+```
+
+`SERIALIZABLE` 격리 수준은 팬텀 삽입 문제를 방지하여, 동일한 코드에 대한 중복 생성 시도를 데이터베이스 수준에서 차단합니다. 트랜잭션이 범위 락(Range Lock)을 설정하기 때문에, 한 트랜잭션이
+특정 코드가 존재하지 않음을 확인한 후 다른 트랜잭션이 동일한 코드를 삽입하는 것을 방지합니다.
+Read 작업과 같이 빈번하게 발생하는 작업이 아니기 때문에 성능에 큰 영향을 미치지 않을 것으로 판단했습니다.
+
+#### DI 설정
+
+부트스트랩 계층의 빈 설정 파일에서 데코레이터 패턴을 적용했습니다:
+
+```kotlin
+// bootstrap/di/applicationBeans.kt
+val applicationBeans = beans {
+    // 원본 서비스 빈 등록
+    bean {
+        PrescriptionCodeWebService(ref())
+    }
+
+    // 데코레이터를 주 빈(primary)으로 등록하여 주입 시 이 빈이 사용되도록 함
+    bean<PrescriptionCodeWebUseCase>(isPrimary = true) {
+        val delegate = ref<PrescriptionCodeWebService>()
+        TransactionalPrescriptionCodeWebService(delegate)
+    }
+}
+```
+
+이 방식은 기존 서비스 로직을 수정하지 않고도 트랜잭션 관리를 할 수 있고, 도메인 계층이 특정 기술에 종속되지 않도록 하는 데 도움이 됩니다.
 
 ## 프로젝트 실행 방법
 
