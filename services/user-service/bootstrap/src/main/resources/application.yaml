@@ -7,6 +7,9 @@ spring:
     password:
   profiles:
     active: local
+  grpc:
+    server:
+      enabled: false
 
 server:
   port: 8082
