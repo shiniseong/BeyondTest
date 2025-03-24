@@ -137,13 +137,11 @@ override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeComma
 ### 실행 단계
 
 1. 저장소 클론
-
-```bash
-git clone https://github.com/yourusername/beyondtest.git
-cd beyondtest
+```
+https://github.com/shiniseong/BeyondTest.git
 ```
 
-2. 빌드
+3. 빌드
 
 ```bash
 ./gradlew build
