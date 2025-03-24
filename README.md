@@ -2,6 +2,10 @@
 
 이 프로젝트는 비욘드메디슨 채용 과제로, 헥사고날 아키텍처와 MSA(Microservice Architecture)를 기반으로 처방코드 관리 및 사용자 검증 서비스를 구현한 애플리케이션입니다.
 
+[API 명세(포스트맨)](https://documenter.getpostman.com/view/43352676/2sAYkHoy9x)
+
+[API 명세(Swagger, 로컬에 처방 코드 서비스 서버 실행 후 이용 가능)](http://localhost:8081/swagger-ui.html)
+
 ## 프로젝트 목표 및 개요
 
 - 처방코드 생성, 활성화, 사용자 검증 기능을 구현
@@ -98,7 +102,7 @@
 
 4. **gRPC 구현 개선**
     - gRPC를 처음 사용하면서 Proto 파일 공유의 중요성을 간과했습니다. 서비스 간에 Proto 파일을 공유하면 유지 보수가 훨씬 쉬워집니다.
-  
+
 5. **여러 서비스간 분산 트랜잭션 적용**
     - 서비스별로 별도의 데이터베이스를 운용하는 구조이기 때문에 특정 서비스에서 예외 발생시 관련 서비스가 롤백 할 수 있는 기능 구현이 필요해 보입니다.
 
@@ -137,6 +141,7 @@ override suspend fun createPrescriptionCode(command: CreatePrescriptionCodeComma
 ### 실행 단계
 
 1. 저장소 클론
+
 ```
 https://github.com/shiniseong/BeyondTest.git
 ```
