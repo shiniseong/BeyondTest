@@ -38,4 +38,8 @@ class PrescriptionCodeWebService(
         return prescriptionCodeRepository.update(activatedCode)
     }
 
+    override suspend fun findAll(): List<PrescriptionCode> {
+        return prescriptionCodeRepository.findAll()
+    }
+
 }

@@ -7,4 +7,5 @@ import io.github.shiniseong.beyondtest.services.prescription.domain.entity.Presc
 interface PrescriptionCodeWebUseCase {
     suspend fun createPrescriptionCode(command: CreatePrescriptionCodeCommand): PrescriptionCode
     suspend fun activatePrescriptionCode(command: ActivatePrescriptionCodeCommand): PrescriptionCode
+    suspend fun findAll(): List<PrescriptionCode>
 }
